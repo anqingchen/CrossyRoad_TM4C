@@ -1,10 +1,8 @@
 #include <stdint.h>
 #include "../inc/tm4c123gh6pm.h"
 #include "ADC.h"
+#include "ST7735.h"
 
-
-uint32_t ADCMail = 0;
-uint8_t ADCStatus = 0;
 void SysTick_Init(uint32_t reloadVal){
   NVIC_ST_CTRL_R = 0;                             // 1) disable SysTick during setup 
   NVIC_ST_RELOAD_R = reloadVal;                   // 2) maximum reload value 
@@ -13,6 +11,4 @@ void SysTick_Init(uint32_t reloadVal){
 }
 
 void SysTick_Handler(void) {
-  ADCMail = ADC_In();                             // take input from ADC
-  ADCStatus = 1; 
 }
