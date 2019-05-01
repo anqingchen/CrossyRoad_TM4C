@@ -2,13 +2,15 @@
 #include "../inc/tm4c123gh6pm.h"
 #include "ADC.h"
 #include "sprite.h"
+#include "ST7735.h"
 
 //=========================//
 // TIMER0A
 // Controls 'player' movment in game
 // 60Hz polls ADC
 //========================//
-
+void DisableInterrupts(void); // Disable interrupts
+void EnableInterrupts(void);  // Enable interrupts
 long StartCritical (void);    // previous I bit, disable interrupts
 void EndCritical(long sr);    // restore I bit to previous value
 extern sprite_t player;
@@ -21,7 +23,7 @@ void Timer0A_Init(uint32_t dwell){
   TIMER0_CTL_R &= ~0x00000001;    // 1) disable TIMER0A during setup
   TIMER0_CFG_R = 0x00000000;    // 2) configure for 32-bit mode
   TIMER0_TAMR_R = 0x00000002;   // 3) configure for periodic mode, default down-count settings
-  TIMER0_TAILR_R = 13953487 * dwell;    // 4) reload value
+  TIMER0_TAILR_R = dwell;    // 4) reload value
   TIMER0_TAPR_R = 0;            // 5) bus clock resolution
   TIMER0_ICR_R = 0x00000001;    // 6) clear TIMER0A timeout flag
   TIMER0_IMR_R = 0x00000001;    // 7) arm timeout interrupt
@@ -38,5 +40,9 @@ uint32_t Convert(uint32_t input){
 }
 
 void Timer0A_Handler(void) {
+  int32_t sr;
+  sr = StartCritical();
   player.x = Convert(ADC_In());
+  ST7735_DrawBitmap(player.x, player.y, player.image, player.height, player.width);
+  EndCritical(sr);
 }

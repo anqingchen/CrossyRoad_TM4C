@@ -423,11 +423,6 @@
               <FilePath>.\texas.o</FilePath>
             </File>
             <File>
-              <FileName>images.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\images.h</FilePath>
-            </File>
-            <File>
               <FileName>random.s</FileName>
               <FileType>2</FileType>
               <FilePath>.\random.s</FilePath>
@@ -438,19 +433,19 @@
               <FilePath>.\Timer0.c</FilePath>
             </File>
             <File>
-              <FileName>Timer0.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\Timer0.h</FilePath>
-            </File>
-            <File>
-              <FileName>sprite.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\sprite.h</FilePath>
-            </File>
-            <File>
               <FileName>Timer2.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Timer2.c</FilePath>
+            </File>
+            <File>
+              <FileName>Inputs.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Inputs.c</FilePath>
+            </File>
+            <File>
+              <FileName>dac.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\dac.c</FilePath>
             </File>
           </Files>
         </Group>
