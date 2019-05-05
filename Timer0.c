@@ -40,8 +40,6 @@ uint32_t Convert(uint32_t input){
 }
 
 void Timer0A_Handler(void) {
-  int32_t sr;
-  sr = StartCritical();
   player.x = Convert(ADC_In());
   if(player.x < 0) {
     player.x = 0;
@@ -50,5 +48,4 @@ void Timer0A_Handler(void) {
     player.x = 116;
   }
   ST7735_DrawBitmap(player.x, player.y, player.image, player.height, player.width);
-  EndCritical(sr);
 }

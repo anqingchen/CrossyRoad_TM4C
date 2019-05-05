@@ -24,7 +24,7 @@ uint32_t totalScore = 0;
 
 sprite_t player = {0, 160, 12, 12, player0img, GRASS, RIGHT};
 sprite_t cars[] = { {0, 147, 20, 12, carimg, ROAD, RIGHT},
-                    {20, 134,      20, 12, carimg, ROAD, RIGHT},
+                    {20, 134, 20, 12, carimg, ROAD, RIGHT},
                     {40, 121, 20, 12, carimg, ROAD, RIGHT},
                     {80, 108, 20, 12, carimg, ROAD, RIGHT},
                     {100, 95, 20, 12, carimg, ROAD, RIGHT},
@@ -43,6 +43,13 @@ int main(void){
   ST7735_DrawBitmap(0, 160, bg, 128, 160);
   Interrupts_Init();
   while(1){
+//    DisableInterrupts();
+//    ST7735_DrawBitmap(player.x, player.y, player.image, player.height, player.width);
+//    for(int i = 0; i < 10; i++) {
+//      ST7735_DrawBitmap(cars[i].x, cars[i].y, cars[i].image, cars[i].height, cars[i].width);
+//    }
+//    EnableInterrupts();
+//    WaitForInterrupt();
   }
 }
 
@@ -50,7 +57,7 @@ void Interrupts_Init(void) {
   Input_Init();
   Input1_Init(); 
   Timer2_Init();
-  Timer0A_Init(1333333);                          // initialize Timer0A to 60Hz
-  SysTick_Init(enemySpeed);
+  Timer0A_Init(2666667);                          // initialize Timer0A to 60Hz
+  SysTick_Init();
   EnableInterrupts();
 }

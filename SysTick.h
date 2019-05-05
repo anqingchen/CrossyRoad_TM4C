@@ -1,2 +1,2 @@
-void SysTick_Init(uint32_t reloadVal);
+void SysTick_Init(void);
 void SysTick_Handler(void);
