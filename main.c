@@ -17,32 +17,40 @@ extern uint8_t ADCStatus;
 void gameRestart(void);
 void DisableInterrupts(void); // Disable interrupts
 void EnableInterrupts(void);  // Enable interrupts
+void Interrupts_Init(void);
 
-sprite_t player = {0, 160, 12, 12, player0img, alive, GRASS, RIGHT};
-sprite_t cars[] = { {0, 147, 20, 12, carimg, alive, ROAD, RIGHT},
-                    {20, 134, 20, 12, carimg, alive, GRASS, RIGHT},
-                    {40, 121, 20, 12, carimg, alive, GRASS, RIGHT},
-                    {80, 108, 20, 12, carimg, alive, GRASS, RIGHT},
-                    {100, 95, 20, 12, carimg, alive, GRASS, RIGHT},
-                    {0, 69, 20, 12, car2, alive, ROAD, RIGHT},
-                    {20, 56, 20, 12, car2, alive, GRASS, RIGHT},
-                    {40, 43, 20, 12, car2, alive, GRASS, RIGHT},
-                    {80, 30, 20, 12, car2, alive, GRASS, RIGHT},
-                    {100, 17, 20, 12, car2, alive, GRASS, RIGHT}};
+uint8_t enemySpeed = 2;
+uint32_t totalScore = 0;
+
+sprite_t player = {0, 160, 12, 12, player0img, GRASS, RIGHT};
+sprite_t cars[] = { {0, 147, 20, 12, carimg, ROAD, RIGHT},
+                    {20, 134,      20, 12, carimg, ROAD, RIGHT},
+                    {40, 121, 20, 12, carimg, ROAD, RIGHT},
+                    {80, 108, 20, 12, carimg, ROAD, RIGHT},
+                    {100, 95, 20, 12, carimg, ROAD, RIGHT},
+                    {0, 69, 20, 12, car2, RIVER, RIGHT},
+                    {20, 56, 20, 12, car2, RIVER, RIGHT},
+                    {40, 43, 20, 12, car2, RIVER, RIGHT},
+                    {80, 30, 20, 12, car2, RIVER, RIGHT},
+                    {100, 17, 20, 12, car2, RIVER, RIGHT}};
 
 int main(void){  
   TExaS_Init();                                   // initializes TExaS Display 
   ST7735_InitR(INITR_REDTAB);                     // initialize ST7735 LCD Display
   ADC_Init();                                     // initialize ADC on PD2
   DAC_Init();
-  Input_Init();
   gameRestart();
   ST7735_DrawBitmap(0, 160, bg, 128, 160);
-  Timer2_Init();
-  Timer0A_Init(1333333);                          // initialize Timer0A to 60Hz
-  SysTick_Init(4000000);
-  Random_Init(1);
-  EnableInterrupts();
+  Interrupts_Init();
   while(1){
   }
+}
+
+void Interrupts_Init(void) {
+  Input_Init();
+  Input1_Init(); 
+  Timer2_Init();
+  Timer0A_Init(1333333);                          // initialize Timer0A to 60Hz
+  SysTick_Init(enemySpeed);
+  EnableInterrupts();
 }

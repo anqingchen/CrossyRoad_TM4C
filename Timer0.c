@@ -43,6 +43,12 @@ void Timer0A_Handler(void) {
   int32_t sr;
   sr = StartCritical();
   player.x = Convert(ADC_In());
+  if(player.x < 0) {
+    player.x = 0;
+  }
+  if (player.x > 116) {
+    player.x = 116;
+  }
   ST7735_DrawBitmap(player.x, player.y, player.image, player.height, player.width);
   EndCritical(sr);
 }
